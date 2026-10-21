@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "base": "/indie-dev-go-global/",
+  "knownRoutes": [
+    "/",
+    "/404",
+    "/experiments",
+    "/finding-demand",
+    "/preface",
+    "/product-sense",
+    "/seo-growth",
+    "/ship-fast",
+    "/two-week-test",
+    "/zero-to-one"
+  ],
+  "opaqueNamespaces": []
+}

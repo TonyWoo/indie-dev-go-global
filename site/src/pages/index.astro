@@ -1,0 +1,62 @@
+---
+// 《一个人出海》首页：直接展示内容 —— 前言 + 7 章直达，无版本选择
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import { config } from "virtual:nimbus/config";
+import { withBase } from "@cloudflare/nimbus-docs/runtime";
+
+// Prerender explicitly so the homepage stays a static route under
+// `output: "server"` — an adapter alone must add zero on-demand routes.
+export const prerender = true;
+
+const base = import.meta.env.BASE_URL;
+
+const chapters = [
+  { slug: "preface", title: "写在前面：先看懂这张能力地图" },
+  { slug: "finding-demand", title: "第 1 章 找需求：去海外用户的抱怨里挖金子" },
+  { slug: "ship-fast", title: "第 2 章 快速造产品：用 AI Coding 一个人走完从想法到上线" },
+  { slug: "seo-growth", title: "第 3 章 SEO 与增长：让 Google 把用户送到你门口" },
+  { slug: "experiments", title: "第 4 章 实验驱动：把增长拆成一轮轮小实验" },
+  { slug: "product-sense", title: "第 5 章 产品 Sense：动手之前先想清楚四件事" },
+  { slug: "zero-to-one", title: "第 6 章 从 0 到 1：攒一段能说服人的独立经验" },
+  { slug: "two-week-test", title: "第 7 章 两周测试：给自己一场无人指派的实战" },
+];
+---
+
+<BaseLayout title={config.title} description={config.description}>
+  <div class="flex flex-col min-h-screen">
+    <Header />
+    <main id="main-content" tabindex="-1" class="flex-1 mx-auto max-w-4xl w-full px-6 py-16">
+      <h1
+        class="text-foreground leading-tight"
+        style="font-size: var(--nb-h1-size); font-weight: var(--nb-h1-weight); letter-spacing: var(--nb-h1-tracking);"
+      >
+        {config.title}
+      </h1>
+      <p class="mt-3 text-[1.0625rem] text-muted-foreground leading-relaxed">
+        {config.description}
+      </p>
+      <p class="mt-2 text-sm text-muted-foreground">
+        著 Tony Wu
+      </p>
+      <p class="mt-4 text-muted-foreground leading-relaxed">
+        全书跟着一个贯穿案例走：前大厂工程师陈屿，业余时间做出面向海外用户的截图美化工具 SnapPolish。
+        从找需求到两周实战测试，7 章带你走完独立开发者出海的完整能力链。
+      </p>
+
+      <h2 class="mt-12 text-foreground" style="font-size: var(--nb-h2-size); font-weight: var(--nb-h2-weight);">
+        章节
+      </h2>
+      <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {chapters.map((c) => (
+          <a
+            href={withBase(`${c.slug}/`, base)}
+            class="block rounded-lg border border-border p-5 transition-colors hover:border-border-strong no-underline"
+          >
+            <div class="font-medium text-foreground">{c.title}</div>
+          </a>
+        ))}
+      </div>
+    </main>
+  </div>
+</BaseLayout>
